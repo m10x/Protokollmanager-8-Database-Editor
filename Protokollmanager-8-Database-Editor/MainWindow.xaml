@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Protokollmanager_8_Database_Editor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Closed="MainWindow_Closed">
     <Grid>
-        
+        <TextBox x:Name="outputBox" HorizontalAlignment="Left" Height="371" Margin="10,10,0,0" TextWrapping="Wrap" Text="Hier könnte Ihr Output stehen" VerticalAlignment="Top" Width="772" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="inputBox" HorizontalAlignment="Left" Height="23" Margin="10,386,0,0" TextWrapping="Wrap" Text="SELECT * FROM CUSTOMER;" VerticalAlignment="Top" Width="692"/>
+        <Button x:Name="sendInputButton" Content="Drück Mich!" HorizontalAlignment="Left" Margin="707,386,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+
     </Grid>
 </Window>
