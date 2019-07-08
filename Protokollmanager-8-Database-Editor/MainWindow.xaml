@@ -12,7 +12,7 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="772" IsEnabled="False" >
+        <ToolBar Grid.Row="0" x:Name="mainToolbar" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="772" IsEnabled="False" >
             <Button x:Name="consoleBtn" Background="LightGray" BorderBrush="Black" Content="Console" Width="120" Margin="2" Click="ConsoleBtn_Click"/>
             <Button x:Name="customerBtn" Background="LightGray" BorderBrush="Black" Content="Customers" Width="120" Margin="2" Click="CustomerBtn_Click"/>
             <Button x:Name="deviceBtn" Background="LightGray" BorderBrush="Black" Content="Devices" Width="120" Margin="2" Click="DeviceBtn_Click"/>
@@ -20,30 +20,34 @@
             <Button Background="LightGray" BorderBrush="Black" Content="Device Types" Width="120" Margin="2"/>
             <Button x:Name="githubBtn" Background="LightGray" BorderBrush="Black" Content="Github" Width="120" Margin="2" Click="GithubBtn_Click"/>
         </ToolBar>
-        <StackPanel Grid.Row="1" x:Name="SettingsPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible">
-            
-        </StackPanel>
-        <StackPanel Grid.Row="1" x:Name="ConsolePanel" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed">
-            <TextBox x:Name="outputBox" HorizontalAlignment="Left" Height="510" Margin="10,0,0,0" TextWrapping="Wrap" Text="Hier könnte Ihr Output stehen" VerticalAlignment="Top" Width="772" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="14"/>
-            <TextBox x:Name="inputBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="SELECT rdb$field_name from rdb$relation_fields where rdb$relation_name='DEVICE';" VerticalAlignment="Top" Width="692"/>
-            <Button x:Name="sendInputButton" Content="Drück Mich!" HorizontalAlignment="Left" Margin="707,-23,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" x:Name="CustomerPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed">
-            <ComboBox x:Name="customerCombo" Width="120" HorizontalAlignment="Left" Margin="10,0,0,0" Text="Choose me!" IsEditable="True" IsReadOnly="True" SelectionChanged="CustomerCombo_SelectionChanged"/>
-            <Button x:Name="customerRefreshBtn" Content="Refresh" HorizontalAlignment="Left" Margin="150,-20,0,0" VerticalAlignment="Top" Width="75" Click="CustomerRefreshBtn_Click"/>
-            <Button Content="Delete" HorizontalAlignment="Left" Margin="700,-20,0,0" VerticalAlignment="Top" Width="75"/>
-            <TextBox x:Name="customerBox" HorizontalAlignment="Left" Height="523" Margin="10,0,0,0" TextWrapping="Wrap" Text="Hier könnte Ihre Firma stehen" Width="771" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="14"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" x:Name="DevicePanel" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed">
-            
-        </StackPanel>
-        <StackPanel Grid.Row="1" x:Name="DeviceKind" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed">
-        </StackPanel>
-        <StackPanel Grid.Row="1" x:Name="DeviceType" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed">
-        </StackPanel>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="173,185,0,0" Grid.Row="1" TextWrapping="Wrap" Text="sysdba" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="173,225,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Password="masterkey" Height="23"/>
-        <Button x:Name="databaseBtn" Content="Select Database" HorizontalAlignment="Left" Margin="152,113,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" Click="DatabaseBtn_Click"/>
-        <TextBox x:Name="pathBox" HorizontalAlignment="Left" Height="23" Margin="325,113,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="411"/>
+        <Grid Grid.Row="1" x:Name="databaseGrid" Visibility="Visible">
+            <TextBox x:Name="usernameBox" HorizontalAlignment="Left" Height="23" Margin="189,195,0,0" Grid.Row="1" TextWrapping="Wrap" Text="sysdba" VerticalAlignment="Top" Width="120"/>
+            <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="189,235,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Password="masterkey" Height="23"/>
+            <Button x:Name="databaseBtn" Content="Select Database" HorizontalAlignment="Left" Margin="108,123,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" Click="DatabaseBtn_Click"/>
+            <TextBox x:Name="pathBox" HorizontalAlignment="Left" Height="23" Margin="281,123,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Choose the database you want to use (.FDB)" VerticalAlignment="Top" Width="411"/>
+            <Label Content="Only change default credentials when needed" HorizontalAlignment="Left" Margin="373,213,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Button x:Name="startBtn" Content="Let me in!" HorizontalAlignment="Left" Margin="108,308,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" Click="StartBtn_Click"/>
+            <Label Content="Username" HorizontalAlignment="Left" Margin="108,195,0,0" Grid.Row="1" VerticalAlignment="Top" Height="23"/>
+            <Label Content="Password" HorizontalAlignment="Left" Margin="108,231,0,0" Grid.Row="1" VerticalAlignment="Top" Width="63"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="consoleGrid" Visibility="Collapsed">
+            <TextBox x:Name="outputBox" HorizontalAlignment="Left" Height="514" Margin="10,0,0,0" TextWrapping="Wrap" Text="Hier könnte Ihr Output stehen" VerticalAlignment="Top" Width="772" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="14"/>
+            <TextBox x:Name="inputBox" HorizontalAlignment="Left" Height="23" Margin="10,519,0,0" TextWrapping="Wrap" Text="SELECT rdb$field_name from rdb$relation_fields where rdb$relation_name='DEVICE';" VerticalAlignment="Top" Width="692"/>
+            <Button x:Name="sendInputButton" Content="Drück Mich!" HorizontalAlignment="Left" Margin="707,519,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="SendInputButton_Click"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="customerGrid" Visibility="Collapsed">
+            <ComboBox x:Name="customerCombo" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" Height="24" IsEditable="True" IsReadOnly="True" Text="Choose me!" SelectionChanged="CustomerCombo_SelectionChanged"/>
+            <Button x:Name="customerRefreshBtn" Content="Refresh" HorizontalAlignment="Left" Margin="135,11,0,0" VerticalAlignment="Top" Width="75" Click="CustomerRefreshBtn_Click" Height="23"/>
+            <Button Content="Delete" HorizontalAlignment="Left" Margin="692,11,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+            <TextBox x:Name="customerBox" HorizontalAlignment="Left" Margin="10,40,0,10" TextWrapping="Wrap" Text="Here could be your company!" Width="771" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="14"/>
+            <Button x:Name="customerFilterBtn" Content="Filters / Options" HorizontalAlignment="Left" Margin="290,11,0,0" VerticalAlignment="Top" Width="139" Height="23" Click="CustomerFilterBtn_Click"/>
+            <Label x:Name="customerFilterLabel" Content="Currently selected: ?" HorizontalAlignment="Left" Margin="434,10,0,0" VerticalAlignment="Top" Height="26"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="deviceGrid" Visibility="Collapsed">
+        </Grid>
+        <Grid Grid.Row="1" x:Name="deviceKindGrid" Visibility="Collapsed">
+        </Grid>
+        <Grid Grid.Row="1" x:Name="deviceTypeGrid" Visibility="Collapsed">
+        </Grid>
     </Grid>
 </Window>

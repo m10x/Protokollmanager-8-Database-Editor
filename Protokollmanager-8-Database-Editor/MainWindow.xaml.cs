@@ -31,21 +31,9 @@ namespace Protokollmanager_8_Database_Editor
         public MainWindow()
         {
             InitializeComponent();
-
-            connString = new FbConnectionStringBuilder();
-            connString.Database = "C:/Users/Public/Documents/Datenbank.FDB";
-            connString.DataSource = "localhost";
-            connString.UserID = "sysdba";
-            connString.Password = "masterkey";
-            connection = new FbConnection(connString.ToString());
-            connection.Open();
-
-            outputBox.Text = connection.State.ToString();
-
-            sendInputButton.Click += sendInputButton_Click;
         }
 
-        private void sendInputButton_Click(object sender, RoutedEventArgs e)
+        private void SendInputButton_Click(object sender, RoutedEventArgs e)
         {
             cmd = new FbCommand(inputBox.Text, connection);
             myReader = cmd.ExecuteReader();
@@ -69,23 +57,32 @@ namespace Protokollmanager_8_Database_Editor
 
         private void ConsoleBtn_Click(object sender, RoutedEventArgs e)
         {
-            ConsolePanel.Visibility = Visibility.Visible;
-            CustomerPanel.Visibility = Visibility.Collapsed;
-            DevicePanel.Visibility = Visibility.Collapsed;
+            consoleGrid.Visibility = Visibility.Visible;
+            databaseGrid.Visibility = Visibility.Collapsed;
+            customerGrid.Visibility = Visibility.Collapsed;
+            deviceGrid.Visibility = Visibility.Collapsed;
+            deviceKindGrid.Visibility = Visibility.Collapsed;
+            deviceTypeGrid.Visibility = Visibility.Collapsed;
         }
 
         private void CustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            ConsolePanel.Visibility = Visibility.Collapsed;
-            CustomerPanel.Visibility = Visibility.Visible;
-            DevicePanel.Visibility = Visibility.Collapsed;
+            consoleGrid.Visibility = Visibility.Collapsed;
+            databaseGrid.Visibility = Visibility.Collapsed;
+            customerGrid.Visibility = Visibility.Visible;
+            deviceGrid.Visibility = Visibility.Collapsed;
+            deviceKindGrid.Visibility = Visibility.Collapsed;
+            deviceTypeGrid.Visibility = Visibility.Collapsed;
         }
 
         private void DeviceBtn_Click(object sender, RoutedEventArgs e)
         {
-            ConsolePanel.Visibility = Visibility.Collapsed;
-            CustomerPanel.Visibility = Visibility.Collapsed;
-            DevicePanel.Visibility = Visibility.Visible;
+            consoleGrid.Visibility = Visibility.Collapsed;
+            databaseGrid.Visibility = Visibility.Collapsed;
+            customerGrid.Visibility = Visibility.Collapsed;
+            deviceGrid.Visibility = Visibility.Visible;
+            deviceKindGrid.Visibility = Visibility.Collapsed;
+            deviceTypeGrid.Visibility = Visibility.Collapsed;
         }
 
         private void GithubBtn_Click(object sender, RoutedEventArgs e)
@@ -128,7 +125,7 @@ namespace Protokollmanager_8_Database_Editor
                 }
             }
             else
-                customerBox.Text = "Es wurden keine Customer gefunden!";
+                customerBox.Text = "No customers found!";
         }
 
         private void DatabaseBtn_Click(object sender, RoutedEventArgs e)
@@ -138,6 +135,38 @@ namespace Protokollmanager_8_Database_Editor
                 pathBox.Text = openFileDialog.FileName;
             else
                 pathBox.Text = "Error while trying to open file!";
+        }
+
+        private void StartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            connString = new FbConnectionStringBuilder();
+            connString.Database = pathBox.Text;
+            connString.DataSource = "localhost";
+            connString.UserID = usernameBox.Text;
+            connString.Password = passwordBox.Password;
+            connection = new FbConnection(connString.ToString());
+            connection.Open();
+
+            if (connection.State.ToString() == "Open")
+                outputBox.Text = "Successfully opened database";
+            else
+                outputBox.Text = "Something went wrong... " + connection.State.ToString();
+
+            consoleGrid.Visibility = Visibility.Visible;
+            databaseGrid.Visibility = Visibility.Collapsed;
+            customerGrid.Visibility = Visibility.Collapsed;
+            deviceGrid.Visibility = Visibility.Collapsed;
+            deviceKindGrid.Visibility = Visibility.Collapsed;
+            deviceTypeGrid.Visibility = Visibility.Collapsed;
+            mainToolbar.IsEnabled = true;
+        }
+
+        private void CustomerFilterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerFilterWindow popup = new CustomerFilterWindow();
+            popup.ShowDialog();
+
+            ((CustomerFilterWindow)Application.Current.MainWindow).
         }
     }
 }
