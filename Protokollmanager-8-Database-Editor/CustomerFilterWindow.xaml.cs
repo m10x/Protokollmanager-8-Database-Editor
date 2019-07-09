@@ -26,7 +26,7 @@ namespace Protokollmanager_8_Database_Editor
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Hide();
         }
 
         private void SelectAllBtn_Click(object sender, RoutedEventArgs e)

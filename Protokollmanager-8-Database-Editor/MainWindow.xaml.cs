@@ -27,10 +27,13 @@ namespace Protokollmanager_8_Database_Editor
         FbConnection connection;
         FbCommand cmd;
         FbDataReader myReader;
+        CustomerFilterWindow popup = new;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            popup = new CustomerFilterWindow();
         }
 
         private void SendInputButton_Click(object sender, RoutedEventArgs e)
@@ -163,10 +166,11 @@ namespace Protokollmanager_8_Database_Editor
 
         private void CustomerFilterBtn_Click(object sender, RoutedEventArgs e)
         {
-            CustomerFilterWindow popup = new CustomerFilterWindow();
             popup.ShowDialog();
 
-            ((CustomerFilterWindow)Application.Current.MainWindow).
+            //((CustomerFilterWindow)Application.Current.MainWindow).
+
+            // FEHLERBEHANDLUNG!!! CONFIG DATEI!!!
         }
     }
 }
