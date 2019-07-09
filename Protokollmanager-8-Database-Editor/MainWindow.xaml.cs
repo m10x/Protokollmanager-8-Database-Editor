@@ -27,7 +27,7 @@ namespace Protokollmanager_8_Database_Editor
         FbConnection connection;
         FbCommand cmd;
         FbDataReader myReader;
-        CustomerFilterWindow popup = new;
+        CustomerFilterWindow popup;
 
         public MainWindow()
         {
